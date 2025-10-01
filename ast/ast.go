@@ -7,8 +7,21 @@ import (
 	"github.com/saiemsaeed/monkey-go/token"
 )
 
+type Node interface {
+	TokenLiteral() string
+	String() string
+}
+
 type Program struct {
 	Statements []Statement
+}
+
+func (p *Program) TokenLiteral() string {
+	if len(p.Statements) > 0 {
+		return p.Statements[0].TokenLiteral()
+	} else {
+		return ""
+	}
 }
 
 func (p *Program) String() string {
@@ -17,12 +30,6 @@ func (p *Program) String() string {
 		out.WriteString(s.String())
 	}
 	return out.String()
-}
-
-// The base Node interface
-type Node interface {
-	TokenLiteral() string
-	String() string
 }
 
 // All statement nodes implement this
