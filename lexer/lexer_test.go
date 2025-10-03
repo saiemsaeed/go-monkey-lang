@@ -28,6 +28,7 @@ if (5 < 10) {
 10 != 9;
 "hello"
 "hello, world"
+[1, 2];
 `
 
 	tests := []struct {
@@ -111,6 +112,12 @@ if (5 < 10) {
 		{token.SEMICOLON, ";", 19, 7},
 		{token.STRING, "hello", 20, 0},
 		{token.STRING, "hello, world", 21, 0},
+		{token.LBRACKET, "[", 22, 0},
+		{token.INT, "1", 22, 1},
+		{token.COMMA, ",", 22, 2},
+		{token.INT, "2", 22, 4},
+		{token.RBRACKET, "]", 22, 5},
+		{token.SEMICOLON, ";", 22, 6},
 		{token.EOF, "", 0, 0},
 	}
 

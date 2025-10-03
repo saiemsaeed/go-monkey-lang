@@ -51,12 +51,16 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.RPAREN, string(l.ch), l.currLine, l.currColumn)
 	case '{':
 		tok = newToken(token.LBRACE, string(l.ch), l.currLine, l.currColumn)
+	case '}':
+		tok = newToken(token.RBRACE, string(l.ch), l.currLine, l.currColumn)
+	case '[':
+		tok = newToken(token.LBRACKET, string(l.ch), l.currLine, l.currColumn)
+	case ']':
+		tok = newToken(token.RBRACKET, string(l.ch), l.currLine, l.currColumn)
 	case '<':
 		tok = newToken(token.LT, string(l.ch), l.currLine, l.currColumn)
 	case '>':
 		tok = newToken(token.GT, string(l.ch), l.currLine, l.currColumn)
-	case '}':
-		tok = newToken(token.RBRACE, string(l.ch), l.currLine, l.currColumn)
 	case '"':
 		tok.Column = l.currColumn - 1
 		tok.Type = token.STRING
