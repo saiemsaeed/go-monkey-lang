@@ -57,6 +57,12 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.GT, string(l.ch), l.currLine, l.currColumn)
 	case '}':
 		tok = newToken(token.RBRACE, string(l.ch), l.currLine, l.currColumn)
+	case '"':
+		tok.Column = l.currColumn - 1
+		tok.Type = token.STRING
+		tok.Line = l.currLine
+		l.readChar()
+		tok.Literal = l.readString()
 	case '!':
 		if l.peekChar() == '=' {
 			ch := l.ch
@@ -124,6 +130,15 @@ func (l *Lexer) skipWhitespace() {
 func (l *Lexer) readIdentifier() string {
 	position := l.position
 	for isLetter(l.ch) {
+		l.readChar()
+	}
+
+	return l.input[position:l.position]
+}
+
+func (l *Lexer) readString() string {
+	position := l.position
+	for l.ch != '"' {
 		l.readChar()
 	}
 
